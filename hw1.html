@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Домашка</title>
+</head>
+
+<body>
+  <h1>Домашка №1</h1>
+  <h2>Задача 1</h2>
+  <h3>Перевод градусов Фаренгейта в градусы Цельсия</h3>
+
+  <input type="number" id="userInput">
+  <button onclick="toCelsius()">Конвертировать</button>
+  <h3 id="result"> </h3>
+
+  <script>
+    function toCelsius() {
+      let f = document.getElementById('userInput').value;
+      let c = (5 / 9) * (f - 32);
+
+      if (!f) {
+        f = 0
+        document.getElementById('result').innerText = "Пустой ввод"
+      } else if (isNaN(f)) {
+        document.getElementById('result').innerText = "Введено не число"
+      } else {
+        document.getElementById('result').innerText = `${f} F = ${c.toFixed(2)} C. 
+      Англосакс, пользуйся нормальными СИ!`;
+      }
+    }
+  </script>
+
+  <h2>Задача 2</h2>
+  <h3> Проверка числа на четность / нечетность </h3>
+
+  <input id="userInput2">
+  <button onclick="checkNum()">Проверить</button>
+  <h3 id="result2"> </h3>
+
+  <script>
+    function checkNum() {
+      let number = document.getElementById("userInput2").value
+      let remainder = number % 2
+      if (!number) {
+        document.getElementById('result2').innerText = "Пустой ввод"
+      } else if (isNaN(number)) {
+        document.getElementById('result2').innerText = "Не число"
+      } else {
+        if (remainder === 0) {
+          document.getElementById('result2').innerText = `${number} четное число.`
+        } else {
+          document.getElementById('result2').innerText = `${number} нечетное число`
+        }
+      }
+    }
+  </script>
+
+  <h2>Задача 3</h2>
+  <h3> Повтор значения in n-раз </h3>
+
+  <label for="userInput3"> Напишем ГОЙДА (in) </label>
+  <input id="userInput3"> <br> <br>
+  <label for="userInput3"> Сколько раз гойданем? (n) </label>
+  <input type="number" id="userInput4"> <br> <br>
+  <button onclick="goydaTimes()">Гойда?</button>
+  <h2 id="result3"> </h2>
+
+  <script>
+    function goydaTimes() {
+      let str = document.getElementById('userInput3').value
+      let n = document.getElementById('userInput4').value
+      let result = ""
+
+      for (let i = 0; i < n; i++) {
+        result += str
+      }
+      console.log(result)
+      document.getElementById("result3").innerText = 'Проверь консоль'
+    }
+  </script>
+</body>
+
+</html>

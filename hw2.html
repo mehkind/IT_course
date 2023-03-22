@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<style>
+  h1 {
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  .container {
+    display: flex;
+    flex-flow: column wrap;
+    border: 10px solid rgba(6, 107, 138, 0.94);
+    border-width: 5px;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(96, 234, 227);
+    text-align: center;
+    font-size: 25px;
+  }
+
+  .input-field input {
+    flex: 1;
+    border: 1px solid #080202;
+    border-radius: 40px;
+    font-size: 50px;
+  }
+</style>
+
+<head>
+
+<body>
+  <h1>Домашнее задание №2</h1>
+
+  <div class="container">
+    <p>Хорни квадратного уравнения</p>
+    <input placeholder="Параметр А" id="userInputA" />
+    <input placeholder="Параметр B" id="userInputB" />
+    <input placeholder="Параметр C" id="userInputC" />
+    <button onclick="quadratic_solver()">Хорни?</button>
+    <p id="result">Здесь будет ответ</p>
+  </div>
+
+  <script>
+    function quadratic_solver() {
+      let a = document.getElementById("userInputA").value;
+      let b = document.getElementById("userInputB").value;
+      let c = document.getElementById("userInputC").value;
+      let d = Math.pow(b, 2) - 4 * a * c;
+
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        document.getElementById("result").innerText = "Введен текст";
+      } else if (!a || !b || !c) {
+        document.getElementById("result").innerText = "Не введен один из параметров";
+      } else if (d < 0) {
+        document.getElementById("result").innerText = "D < 0, уравнение не хорни";
+      } else if (d === 0) {
+        const d1 = "";
+        d1 = (-b / 2) * a;
+        document.getElementById("result").innerText = `${d1.toFixed(2)} хорень уравнения.`;
+      } else {
+        const d2 = "";
+        const d3 = "";
+
+        d2 = (-b + Math.sqrt(d)) / (2 * a);
+        d3 = (-b - Math.sqrt(d)) / (2 * a);
+        document.getElementById("result").innerText = `${d2.toFixed(2)} и ${d3.toFixed(2)} хорни уравнения.`;
+      }
+    } 
+  </script>
+</body>
+</head>
+
+</html>
