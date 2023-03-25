@@ -56,16 +56,13 @@
         background-color: #fff;
     }
 
-    table {
-        border-collapse: collapse;
-    }
-
     .table-wrapper {
         display: none;
         overflow: hidden;
         padding: inherit;
         color: #f96d00;
         margin: inherit;
+        border-collapse: collapse;
     }
 
     img {
@@ -158,11 +155,7 @@
         <button type="button" class="collapsible">Click to access</button>
         <div class="table-wrapper">
             <table id="user-table">
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
+                <tr></tr>
             </table>
             <div class="flexInput">
                 <input id="Name" placeholder="Name">
@@ -207,7 +200,26 @@
 
     const tableBody = document.querySelector("#user-table tbody");
 
-    /// Table creation
+    /// Headers creation
+    function headersCreate() {
+        const headerRow = document.createElement("tr");
+
+        const header1 = document.createElement("th");
+        header1.textContent = "Name";
+        headerRow.appendChild(header1);
+
+        const header2 = document.createElement("th");
+        header2.textContent = "Nickname";
+        headerRow.appendChild(header2);
+
+        var header3 = document.createElement("th");
+        header3.textContent = "Email";
+        headerRow.appendChild(header3);
+
+        tableBody.appendChild(headerRow);
+    }
+
+    /// Row creation
 
     function tableCreate() {
         users.forEach(function (user) {
@@ -227,7 +239,6 @@
             tableBody.appendChild(row);
         })
     }
-
     /// addUser button functionality
 
     function addUser() {
@@ -240,14 +251,15 @@
         } else if (users.some(user => user.nickname === nicknameInput || user.email === emailInput)) {
             alert('Nickname/Email is already in the database')
         } else {
-            tableBody.innerHTML = "";
             users.push({ name: nameInput, nickname: nicknameInput, email: emailInput });
+            tableBody.innerHTML = "";
+            headersCreate();
             tableCreate();
             alert('User added successfully!');
         }
 
     }
-    document.addEventListener("DOMContentLoaded", tableCreate())
+    document.addEventListener("DOMContentLoaded", function () { headersCreate(); tableCreate(); });
 </script>
 
 </html>
