@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+<style>
+    body {
+        background-color: #222831;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
+    }
+
+    .topnav {
+        background: rgb(242, 242, 242);
+        background: linear-gradient(45deg, rgba(242, 242, 242, 1) 50%, #393e46 50%);
+        padding: 2em;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1.25em;
+        margin-bottom: 75px;
+        padding: 15px;
+    }
+
+    .boxmenu {
+        display: block;
+        margin: 1em;
+        padding: 1em;
+        background-color: #393e46;
+        border: 2px solid #f96d00;
+        border-radius: 1rem 1.5rem 1.5rem 1.5rem;
+        box-shadow: 10px 10px;
+    }
+
+    .collapsible {
+        padding: 10px;
+        background-color: #222831;
+        border-radius: 6px;
+        border-width: 0;
+        box-sizing: border-box;
+        color: #f96d00;
+        cursor: pointer;
+        font-size: 100%;
+        height: 2.5em;
+        line-height: 1.15em;
+        overflow: hidden;
+        text-align: center;
+        transition: all .2s, box-shadow .08s ease-in;
+        width: 100%;
+    }
+
+    .active,
+    .collapsible:hover {
+        transform: translateY(-3px);
+        background-color: #fff;
+    }
+
+    .table-wrapper {
+        display: none;
+        overflow: hidden;
+        padding: inherit;
+        color: #f96d00;
+        margin: inherit;
+        border-collapse: collapse;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .icon {
+        height: 100px;
+        width: 100px;
+        margin: 60px 0 0;
+        animation: spin1 10s infinite linear;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @keyframes spin1 {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .addUserButton {
+        color: #f96d00;
+        background-color: #222831;
+        width: 100%;
+        margin-top: 1em;
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        font-size: 16px;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+
+    }
+
+    .addUserButton:hover {
+        background-color: #fff;
+    }
+
+    input {
+        color: #f96d00;
+        max-width: 100%;
+        min-height: 30px;
+        margin-top: 5vh;
+        margin-bottom: 15px;
+        background-color: #222831;
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        font-size: 16px;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+    }
+
+    input:focus {
+        outline: none;
+        background-color: #fff;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+    }
+
+
+    .flexInput {
+        display: flex;
+        flex-flow: row wrap;
+        align-self: center;
+        justify-content: space-evenly;
+
+    }
+
+    ::placeholder {
+        color: #f96d00;
+    }
+</style>
+
+<head>
+</head>
+
+<body>
+    <div class="topnav">Black Mesa Database</div>
+    <div class="boxmenu">
+        <button type="button" class="collapsible">Click to access</button>
+        <div class="table-wrapper">
+            <table id="user-table">
+                <tr></tr>
+            </table>
+            <div class="flexInput">
+                <input id="Name" placeholder="Name">
+                <input id="Nickname" placeholder="Nickname">
+                <input id="Email" placeholder="Email">
+            </div>
+            <button type="button" class="addUserButton" onclick="addUser()">Add user</button>
+        </div>
+    </div>
+    </div>
+    <div class="icon">
+        <a href="https://youtu.be/HzBRbWtUL08">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Half-Life_lambda_logo.svg">
+        </a>
+    </div>
+</body>
+
+<script>
+    /// Collapsible button
+
+    const coll = document.getElementsByClassName("collapsible");
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+
+    /// Database functionality
+
+    const users = [
+        { name: "Gordon", nickname: "Freeman", email: "freeman@mesa.com" },
+        { name: "Alyx", nickname: "Vance", email: "vance@mesa.com" },
+        { name: "The G", nickname: "Man", email: "gman@???.com" }
+    ];
+
+    const tableBody = document.querySelector("#user-table tbody");
+
+    /// Headers creation
+    function headersCreate() {
+        const headerRow = document.createElement("tr");
+
+        const header1 = document.createElement("th");
+        header1.textContent = "Name";
+        headerRow.appendChild(header1);
+
+        const header2 = document.createElement("th");
+        header2.textContent = "Nickname";
+        headerRow.appendChild(header2);
+
+        var header3 = document.createElement("th");
+        header3.textContent = "Email";
+        headerRow.appendChild(header3);
+
+        tableBody.appendChild(headerRow);
+    }
+
+    /// Row creation
+
+    function tableCreate() {
+        users.forEach(function (user) {
+            const row = document.createElement("tr");
+            const nameCell = document.createElement("td");
+            const nicknameCell = document.createElement("td");
+            const emailCell = document.createElement("td");
+
+            nameCell.textContent = user.name;
+            nicknameCell.textContent = user.nickname;
+            emailCell.textContent = user.email;
+
+            row.appendChild(nameCell);
+            row.appendChild(nicknameCell);
+            row.appendChild(emailCell);
+
+            tableBody.appendChild(row);
+        })
+    }
+    /// addUser button functionality
+
+    function addUser() {
+        let nameInput = document.getElementById('Name').value;
+        let nicknameInput = document.getElementById('Nickname').value;
+        let emailInput = document.getElementById('Email').value;
+
+        if (!nameInput || !nicknameInput || !emailInput) {
+            alert('Check input fields. Some of them are empty.')
+        } else if (users.some(user => user.nickname === nicknameInput || user.email === emailInput)) {
+            alert('Nickname/Email is already in the database')
+        } else {
+            users.push({ name: nameInput, nickname: nicknameInput, email: emailInput });
+            tableBody.innerHTML = "";
+            headersCreate();
+            tableCreate();
+            alert('User added successfully!');
+        }
+
+    }
+    document.addEventListener("DOMContentLoaded", function () { headersCreate(); tableCreate(); });
+</script>
+
+</html>
